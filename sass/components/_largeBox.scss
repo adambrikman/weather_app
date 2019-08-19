@@ -1,88 +1,96 @@
 .box {
-    @include addShadow;
     @include absCenter
-    background-color: $color-primary;
     height: 75rem;
     width: 100rem;
-    border: 1px solid $color-grey-light-2;
     border-radius: 30px;
+
+    .indicators {
+        display: inline-block;
+        width: 60%;
+        padding-right: 11rem;
+        padding-top: 3rem;
+        padding-bottom: 0px!important;
+        border-top: 2px solid #72bcd4;
+        border-bottom: 2px solid #72bcd4;
+    }
+
+    .futureIcons {
+        padding: 2rem;
+    }
+
+    .center-icon {
+        border-top: 2px solid #72bcd4;
+        padding-top: 2rem;
+        width: 60%;
+        display: inline-block;
+
+        &::after {
+            content: "";
+            clear: both;
+            display: table;
+        }    
+    }
 
     &__current{
         padding-top: 5rem;
-        text-align: center;
+
+        &--precip {
+            margin-left: 2rem;
+            display: inline-block;
+        }
+
+        &--wind {
+            margin-left: 2rem;
+            display: inline-block;
+            position: absolute;
+            // padding-left: 1.2rem;
+        }
+
+        &--precip {
+            position: absolute;
+            // padding-left: 1.2rem;
+        }
+
+        &--apparentTemp {
+            position: absolute;
+            padding-left: 6rem;
+        }
+        
+        &--date {
+            margin-bottom: 1rem;
+        }
+
+        &--weatherStatus {
+            padding-top: 1rem;
+        }
+
+        &--icon {
+            position: absolute;
+            left: 36%;
+            margin-left: -50px;
+          }
+          
+        &--temp {
+            padding-left: 24rem;
+            padding-top: 1rem;
+
+            &::after {
+                content: "";
+                clear: both;
+                display: table;
+                padding-bottom: 5rem;
+            }
+        }
     }
   
     &__current div{
         padding-bottom: 2rem;
     }
 
-    // &__picture {
-    //     background-size: cover;
-    //     background-blend-mode: screen;
-    //     border-radius: 30px;
-    //     height: 22rem;
-    //     padding-bottom: 20rem;
-
-    //     &--1 {
-    //         // margin: 0 auto;
-    //         // padding-top: 2rem;
-    //         // width: 95%;
-    //         // background-image: url(../img/number1.jpg);
-    //     }
-
-    //     &--2 {
-    //         // margin: 0 auto;
-    //         // padding-top: 2rem;
-    //         // width: 95%;
-    //         // background-image: url(../img/number2.jpg);
-    //     }
-
-    //     &--3 {
-    //         // margin: 0 auto;
-    //         // padding-top: 2rem;
-    //         // width: 95%;
-    //         // background-image: url(../img/number3.jpg);
-    //     }
-
-    // }
-
     &__heading {
-        text-align: center;
         width: 98%;
-        font-size: 2rem;
-        font-weight: 400;
         padding-top: 3rem;
-        // text-transform: uppercase;
         width: 98%;
-
+        margin-bottom: 1rem;
     }
-
-    // &__heading-span {
-        // -webkit-box-decoration-break: clone;
-        // box-decoration-break: clone;
-        // padding: 1rem 2rem;
-            // &--1 { 
-            // }
-
-    // }
-
-    // &__details {
-    //     padding: 3rem;
-
-    //     ul {
-    //         list-style-type: none;
-    //         padding-bottom: 3rem;
-    //     }
-
-    //     li {
-    //         font-size: $default-font-size;
-    //         padding: 1rem;
-    //         text-align: center;
-
-    //         &:not(:last-child) {
-    //             border-bottom: 1px solid $color-grey-light-2;
-    //         }
-    //     }  
-    // }
-
 }

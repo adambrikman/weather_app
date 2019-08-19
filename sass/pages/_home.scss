@@ -1,3 +1,5 @@
-body {
-    background: $color-primary-dark;
+@media(min-width: 700px) {
+    body {
+        background: linear-gradient(135deg, #72bcd4 15%, #fefdfb 15%, #fefdfb 85%, #72bcd4 85%);
+    }
 }

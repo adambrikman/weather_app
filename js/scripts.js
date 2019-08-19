@@ -4,6 +4,7 @@ let locationName = document.querySelector('.box__current--heading'),
     currentDate = document.querySelector('.box__current--date'),
     currentStatus = document.querySelector('.box__current--weatherStatus'),
     currentTemp = document.querySelector('.box__current--temp'),
+    apparentTemp = document.querySelector('.box__current--apparentTemp'),
     currentPrecip = document.querySelector('.box__current--precip'),
     currentWind = document.querySelector('.box__current--wind');
 
@@ -24,29 +25,55 @@ function getWeather(lat, lon, city, state) {
   .then(function(response) {
     return response.json();
   })
-  .then(function(json) {
-    
-    console.log(json);
-    
+  .then(function(json) {       
     locationName.textContent = `${city}, ${state}`;
     currentDate.textContent = currDateString;
     
-    var icons = new Skycons({"color": "black"});
-    var rainCon = new Skycons({"color": "black"});
-    var windCon = new Skycons({"color": "black"});
+    // Change color of icons to black if they are night-time icons
+    function changeCurrentColors(icon) {
+      if(icon == "clear-night" || icon == "partly-cloudy-night") {
+        return 'black';
+      } else {
+        return '"#f6f314';
+      }
+    }
+    
+    var icons = new Skycons({"color": changeCurrentColors(json.currently.icon)});
+    var rainCon = new Skycons({"color": '#72bcd4' });
+    var windCon = new Skycons({"color": '#99cc99'});
     
     icons.add('todaysIcon', json.currently.icon);
     icons.play();
 
-    currentStatus.textContent = json.currently.summary;
+    var sym, v;
+    
+    function setVars() {
+      sym = currentTemp.textContent[currentTemp.textContent.length-1];
+      v = currentTemp.textContent.match(/\d{1,3}/)[0];  
+    }
+    
     currentTemp.textContent = `${Math.round(json.currently.temperature)}° F`;
+    setVars()
+
+    currentTemp.addEventListener("click", function f() {
+      if(sym == "F") {
+        currentTemp.textContent = `${Math.round(convertDegrees(sym, v))}° C`;
+        setVars()
+      } else {
+        currentTemp.textContent = `${Math.round(convertDegrees(sym, v))}° F`;
+        setVars()
+      }
+    }  );
+    
+    currentStatus.textContent = json.currently.summary;
+    apparentTemp.textContent = `Feels like: ${Math.round(json.currently.apparentTemperature)}° F`;
 
     currentPrecip.textContent = `${(json.currently.precipProbability*100)}%`;
-    rainCon.add('rainIcon', Skycons.WIND);
+    rainCon.add('windIcon', Skycons.RAIN);
     rainCon.play();
     
     currentWind.textContent = `${Math.round(json.currently.windSpeed)} Mph`
-    windCon.add('windIcon', Skycons.RAIN);
+    windCon.add('rainIcon', Skycons.WIND);
     windCon.play();
 
     createForecast(json.daily.data);
@@ -70,13 +97,22 @@ let dailyIndex;
     }
     document.querySelector(`.box__future-${i} div`).textContent = days[dailyIndex];
 
-    var dailyIcon = new Skycons({"color": "black"});
+    var dailyIcon = new Skycons({"color": "#f6f314"});
     dailyIcon.add(`icon${i}`, forecastData[i].icon);
     dailyIcon.play();
     
     document.querySelector(`.box__future-${i}--temps`).textContent = 
       `${Math.round(forecastData[i].temperatureHigh)}° F / ${Math.round(forecastData[i].temperatureLow)}° F`;
   }
+}
+
+function convertDegrees(symbol, value) {
+  
+  if(symbol == "F") {
+     return Math.round(((value-32) * (5/9)));
+     // currentTemp.textContent = `${Math.round(json.currently.temperature)}° F`
+  }
+  return Math.round((value * (9/5) + 32));
 }
 
 // fetch('https://ipinfo.io/json')

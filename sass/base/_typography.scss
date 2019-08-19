@@ -1,1 +1,24 @@
+body {
+    font-family: 'Lora', serif;
+    font-size: 1.7rem;
+    font-weight: bold;
+  }
 
+  .box {
+    .forecast-data {
+        text-align: center;
+    }
+
+    &__current{
+        text-align: center;
+          
+        &--temp {
+            font-size: 8rem;
+        }
+
+        &--heading {
+            font-weight: 400;
+            font-size: 4rem;
+        }
+    }
+}
