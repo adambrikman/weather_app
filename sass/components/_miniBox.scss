@@ -1,0 +1,31 @@
+.box {
+    &__future {
+
+        &--tempsHigh, &--tempsLow {
+            &-1 {
+                display: inline-block;
+            }
+
+            &-2 {
+                display: inline-block;
+            }
+
+            &-3 {
+                display: inline-block;
+            }
+
+            &-4 {
+                display: inline-block;
+            }
+
+            &-5 {
+                display: inline-block;
+            }
+
+            &-6 {
+                display: inline-block; 
+            }
+        }
+
+    }
+}

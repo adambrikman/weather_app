@@ -9,16 +9,18 @@ body {
         text-align: center;
     }
 
-    &__current{
-        text-align: center;
-          
+    &__heading {
+        font-weight: 400;
+        font-size: 4rem;
+    }
+
+    &__center {
         &--temp {
             font-size: 8rem;
         }
+    }
 
-        &--heading {
-            font-weight: 400;
-            font-size: 4rem;
-        }
+    &__current{
+        text-align: center;
     }
 }

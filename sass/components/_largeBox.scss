@@ -4,60 +4,35 @@
     width: 100rem;
     border-radius: 30px;
 
-    .indicators {
-        display: inline-block;
-        width: 60%;
-        padding-right: 11rem;
+    &__heading {
+        width: 98%;
         padding-top: 3rem;
-        padding-bottom: 0px!important;
-        border-top: 2px solid #72bcd4;
-        border-bottom: 2px solid #72bcd4;
+        width: 98%;
+        margin-bottom: 1rem;
     }
 
-    .futureIcons {
-        padding: 2rem;
+    &__date {
+        margin-bottom: 1rem;
     }
 
-    .center-icon {
+    &__current{
+
+        & div {
+            padding-bottom: 2rem;
+        }
+    }
+
+    &__center {
         border-top: 2px solid #72bcd4;
         padding-top: 2rem;
+        margin-bottom: 10rem;
         width: 60%;
         display: inline-block;
-
+    
         &::after {
             content: "";
             clear: both;
             display: table;
-        }    
-    }
-
-    &__current{
-        padding-top: 5rem;
-
-        &--precip {
-            margin-left: 2rem;
-            display: inline-block;
-        }
-
-        &--wind {
-            margin-left: 2rem;
-            display: inline-block;
-            position: absolute;
-            // padding-left: 1.2rem;
-        }
-
-        &--precip {
-            position: absolute;
-            // padding-left: 1.2rem;
-        }
-
-        &--apparentTemp {
-            position: absolute;
-            padding-left: 6rem;
-        }
-        
-        &--date {
-            margin-bottom: 1rem;
         }
 
         &--weatherStatus {
@@ -71,8 +46,10 @@
           }
           
         &--temp {
-            padding-left: 24rem;
-            padding-top: 1rem;
+            position: absolute;
+            display: inline-block;
+            transition-duration: 0.4s;
+            cursor: pointer;
 
             &::after {
                 content: "";
@@ -82,15 +59,67 @@
             }
         }
     }
-  
-    &__current div{
-        padding-bottom: 2rem;
+
+    &__indicators {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        width: 60%;
+        padding-top: 3rem;
+        padding-bottom: 0px!important;
+        border-top: 2px solid #72bcd4;
+        border-bottom: 2px solid #72bcd4;
+
+        &--precip {
+            position: absolute;
+            margin-left: 2rem;
+            display: inline-block;
+        }
+
+        &--wind {
+            margin-left: 2rem;
+            display: inline-block;
+            position: absolute;
+        }
+
+        &--apparentTemp {
+            display: inline-block;
+        }
     }
 
-    &__heading {
-        width: 98%;
-        padding-top: 3rem;
-        width: 98%;
-        margin-bottom: 1rem;
-    }
 }
+
+.feels {
+    display: inline-block;
+  }
+
+.futureIcons {
+    padding: 2rem;
+}
+
+.windCons {
+    padding-right: 1rem;
+  }
+  
+.rainCons {
+padding-right: 11rem;
+}
+
+.wrap {
+float: left;
+}
+
+.parent::after {
+    content: "";
+    clear: both;
+    display: table;
+    padding-bottom: 5rem; 
+}
+
+
+
+// .made-with-love{
+    //     padding: 0;
+    //     margin: 0;
+    //   }
+    

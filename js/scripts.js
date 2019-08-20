@@ -1,12 +1,12 @@
 "use strict"
 
-let locationName = document.querySelector('.box__current--heading'),
-    currentDate = document.querySelector('.box__current--date'),
-    currentStatus = document.querySelector('.box__current--weatherStatus'),
-    currentTemp = document.querySelector('.box__current--temp'),
-    apparentTemp = document.querySelector('.box__current--apparentTemp'),
-    currentPrecip = document.querySelector('.box__current--precip'),
-    currentWind = document.querySelector('.box__current--wind');
+let locationName = document.querySelector('.box__heading'),
+    currentDate = document.querySelector('.box__date'),
+    currentStatus = document.querySelector('.box__center--weatherStatus'),
+    currentTemp = document.querySelector('.box__center--temp'),
+    apparentTemp = document.querySelector('.box__indicators--apparentTemp'),
+    currentPrecip = document.querySelector('.box__indicators--precip'),
+    currentWind = document.querySelector('.box__indicators--wind');
 
 // Temporary, not to overdraw API call
 getWeather(36.1750, -115.1372, 'Las Vegas', 'Nevada');
@@ -28,16 +28,7 @@ function getWeather(lat, lon, city, state) {
   .then(function(json) {       
     locationName.textContent = `${city}, ${state}`;
     currentDate.textContent = currDateString;
-    
-    // Change color of icons to black if they are night-time icons
-    function changeCurrentColors(icon) {
-      if(icon == "clear-night" || icon == "partly-cloudy-night") {
-        return 'black';
-      } else {
-        return '"#f6f314';
-      }
-    }
-    
+
     var icons = new Skycons({"color": changeCurrentColors(json.currently.icon)});
     var rainCon = new Skycons({"color": '#72bcd4' });
     var windCon = new Skycons({"color": '#99cc99'});
@@ -45,28 +36,13 @@ function getWeather(lat, lon, city, state) {
     icons.add('todaysIcon', json.currently.icon);
     icons.play();
 
-    var sym, v;
-    
-    function setVars() {
-      sym = currentTemp.textContent[currentTemp.textContent.length-1];
-      v = currentTemp.textContent.match(/\d{1,3}/)[0];  
-    }
-    
-    currentTemp.textContent = `${Math.round(json.currently.temperature)}° F`;
-    setVars()
+    var sym;
 
-    currentTemp.addEventListener("click", function f() {
-      if(sym == "F") {
-        currentTemp.textContent = `${Math.round(convertDegrees(sym, v))}° C`;
-        setVars()
-      } else {
-        currentTemp.textContent = `${Math.round(convertDegrees(sym, v))}° F`;
-        setVars()
-      }
-    }  );
-    
+    currentTemp.textContent = `${Math.round(json.currently.temperature)}° F`;
+    updateSymbolVariable();
+
     currentStatus.textContent = json.currently.summary;
-    apparentTemp.textContent = `Feels like: ${Math.round(json.currently.apparentTemperature)}° F`;
+    apparentTemp.textContent = `${Math.round(json.currently.apparentTemperature)}° F`;
 
     currentPrecip.textContent = `${(json.currently.precipProbability*100)}%`;
     rainCon.add('windIcon', Skycons.RAIN);
@@ -76,7 +52,53 @@ function getWeather(lat, lon, city, state) {
     windCon.add('rainIcon', Skycons.WIND);
     windCon.play();
 
+    let selectAllTemps = [...document.querySelectorAll('.temp-conv')];
+    // console.log();
+
+    currentTemp.addEventListener("click", function f() {
+      if(sym == "F") {
+        for(let i = 0; i < selectAllTemps.length; i++) {
+          let c = `${convertDegrees(sym, selectAllTemps[i].textContent.match(/\d{1,3}/)[0])}° C`;
+          selectAllTemps[i].textContent = c;          
+        }
+        updateSymbolVariable();
+      } else {
+        for(let i = 0; i < selectAllTemps.length; i++) {
+          let f = `${convertDegrees(sym, selectAllTemps[i].textContent.match(/\d{1,3}/)[0])}° F`;
+          selectAllTemps[i].textContent = f;          
+        }
+        updateSymbolVariable();
+      }
+    });
+
+        
+    currentTemp.addEventListener("mouseover", function(e) {   
+      // highlight the mouseover target
+      e.target.style.color = "#72bcd4";
+    });
+    
+    
+    currentTemp.addEventListener("mouseout", function(e) {   
+      // highlight the mouseover target
+      e.target.style.color = "black";
+      e.target.style.transitionDuration = ".8s";
+    });
+    
     createForecast(json.daily.data);
+    
+     
+    function updateSymbolVariable() {
+      sym = currentTemp.textContent[currentTemp.textContent.length-1];
+    }   
+    
+    // Change color of icons to black if they are night-time icons
+    function changeCurrentColors(icon) {
+      if(icon == "clear-night" || icon == "partly-cloudy-night") {
+        return 'black';
+      } else {
+        return '#E3DB25';
+      }
+    }
     
   });
 
@@ -97,12 +119,14 @@ let dailyIndex;
     }
     document.querySelector(`.box__future-${i} div`).textContent = days[dailyIndex];
 
-    var dailyIcon = new Skycons({"color": "#f6f314"});
+    // #f6f314
+    // #E8EA3A
+    var dailyIcon = new Skycons({"color": "#E3DB25"});
     dailyIcon.add(`icon${i}`, forecastData[i].icon);
     dailyIcon.play();
     
-    document.querySelector(`.box__future-${i}--temps`).textContent = 
-      `${Math.round(forecastData[i].temperatureHigh)}° F / ${Math.round(forecastData[i].temperatureLow)}° F`;
+    document.querySelector(`.box__future--tempsHigh-${i}`).textContent = `${Math.round(forecastData[i].temperatureHigh)}° F`;
+    document.querySelector(`.box__future--tempsLow-${i}`).textContent = `${Math.round(forecastData[i].temperatureLow)}° F`;
   }
 }
 
@@ -112,7 +136,7 @@ function convertDegrees(symbol, value) {
      return Math.round(((value-32) * (5/9)));
      // currentTemp.textContent = `${Math.round(json.currently.temperature)}° F`
   }
-  return Math.round((value * (9/5) + 32));
+  return Math.trunc((value * (9/5) + 32));
 }
 
 // fetch('https://ipinfo.io/json')

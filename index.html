@@ -15,46 +15,45 @@
   <body>
     <div class="box">
       <div class="box__current">
-        <div class="box__current--heading">
-          Location Forecast
+        <div class="box__heading">
         </div>
 
-        <div class="box__current--date">
-          Fri, August 16th
+        <div class="box__date">
         </div>
     
-        <div class = "center-icon">
-          <div class="box__current--icon">
+        <div class = "box__center">
+          <div class="box__center--icon">
             <figure class="icons">
               <canvas id="todaysIcon" width="128" height="128"></canvas>
             </figure>
-            <div class="box__current--weatherStatus"></div>
+            <div class="box__center--weatherStatus"></div>
           </div>
-
-          <div class="box__current--temp"></div>
+          <div class='parent'>
+            <div class="box__center--temp temp-conv"></div>
+          </div>
         </div>
-          
-
-
 
         <div class="row">
-          <div class="indicators">
+          <div class="box__indicators">
             <div class="col-1-of-3">
               <figure class="windCons">
-                <canvas id="windIcon" width="32" height="32"></canvas>
-                <div class="box__current--precip"></div>
+                <canvas id="windIcon" width="32" height="32" title="Chance of rain"></canvas>
+                <div class="box__indicators--precip"></div>
               </figure>
             </div>
 
             <div class="col-1-of-3">
               <figure class="rainCons">
-                <canvas id="rainIcon" width="32" height="32"></canvas>
-                <div class="box__current--wind"></div>
+                <canvas id="rainIcon" width="32" height="32" title="Wind speed"></canvas>
+                <div class="box__indicators--wind"></div>
               </figure>
             </div>
 
             <div class="col-1-of-3">
-              <div class="box__current--apparentTemp"></div>
+              <span class = "wrap">
+                <div class="feels">Feels like:&nbsp;</div>
+                <div class="box__indicators--apparentTemp temp-conv"></div>
+              </span>
             </div>
           </div>
 
@@ -67,9 +66,7 @@
           <div class="col-1-of-6">
 
             <div class="box__future-1">
-              <div class="box__future-1--date">
-                Day
-              </div>
+              <div class="box__future-1--date"></div>
 
               <div class="box__future-1--icon">
                 <figure class="futureIcons">
@@ -77,9 +74,9 @@
                 </figure>
               </div>
 
-              <div class="box__future-1--temps">
-                105° F / 85° F
-              </div>
+              <div class="box__future--tempsHigh-1 temp-conv"></div>
+              <span>/ </span>
+              <div class="box__future--tempsLow-1 temp-conv"></div>
             </div>
 
           </div>
@@ -88,19 +85,19 @@
           <div class="col-1-of-6">
 
             <div class="box__future-2">
-              <div class="box__future-2--date">
-                Day
+              <div class="box__future--date-2">
               </div>
 
-              <div class="box__future-2--icon">
+              <div class="box__future--icon-2">
                 <figure class="futureIcons">
                   <canvas id="icon2" width="64" height="64"></canvas>
                 </figure>
               </div>
 
-              <div class="box__future-2--temps">
-                105° F / 85° F
-              </div>
+              <div class="box__future--tempsHigh-2 temp-conv"></div>
+              <span>/ </span>
+              <div class="box__future--tempsLow-2 temp-conv"></div>
+
             </div>
 
           </div>
@@ -108,19 +105,18 @@
           <div class="col-1-of-6">
 
             <div class="box__future-3">
-              <div class="box__future-3--date">
-                Day
-              </div>
+              <div class="box__future--date-3"></div>
 
-              <div class="box__future-3--icon">
+              <div class="box__future--icon-3">
                 <figure class="futureIcons">
                   <canvas id="icon3" width="64" height="64"></canvas>
                 </figure>
               </div>
 
-              <div class="box__future-3--temps">
-                105° F / 85° F
-              </div>
+              <div class="box__future--tempsHigh-3 temp-conv"></div>
+              <span>/ </span>
+              <div class="box__future--tempsLow-3 temp-conv"></div>
+
             </div>
 
           </div>
@@ -128,19 +124,17 @@
           <div class="col-1-of-6">
 
             <div class="box__future-4">
-              <div class="box__future-4--date">
-                Day
-              </div>
+              <div class="box__future--date-4"></div>
 
-              <div class="box__future-4--icon">
+              <div class="box__future--icon-4">
                 <figure class="futureIcons">
                   <canvas id="icon4" width="64" height="64"></canvas>
                 </figure>
               </div>
 
-              <div class="box__future-4--temps">
-                105° F / 85° F
-              </div>
+              <div class="box__future--tempsHigh-4 temp-conv"></div>
+              <span>/ </span>
+              <div class="box__future--tempsLow-4 temp-conv"></div>
             </div>
 
           </div>
@@ -149,9 +143,7 @@
           <div class="col-1-of-6">
 
             <div class="box__future-5">
-              <div class="box__future-5--date">
-                Day
-              </div>
+              <div class="box__future-5--date"></div>
 
               <div class="box__future-5--icon">
                 <figure class="futureIcons">
@@ -159,9 +151,10 @@
                 </figure>
               </div>
 
-              <div class="box__future-5--temps">
-                105° F / 85° F
-              </div>
+              <div class="box__future--tempsHigh-5 temp-conv"></div>
+              <span>/ </span>
+              <div class="box__future--tempsLow-5 temp-conv"></div>
+
             </div>
 
           </div>
@@ -169,19 +162,17 @@
           <div class="col-1-of-6">
 
             <div class="box__future-6">
-              <div class="box__future-6--date">
-                Day
-              </div>
+              <div class="box__future--date-6"></div>
 
-              <div class="box__future-6--icon">
+              <div class="box__future--icon-6">
                 <figure class="futureIcons">
                   <canvas id="icon6" width="64" height="64"></canvas>
                 </figure>
               </div>
 
-              <div class="box__future-6--temps">
-                105° F / 85° F
-              </div>
+              <div class="box__future--tempsHigh-6 temp-conv"></div>
+              <span>/ </span>
+              <div class="box__future--tempsLow-6 temp-conv"></div>
 
             </div>
 
@@ -191,13 +182,13 @@
 
 
         <div class="made-with-love">
-          Made with ❤️ by: Adam Brikman
+          Made with ❤️ by: <a href="https://github.com/adambrikman">Adam Brikman</a>
         </div>
       </div>
     </div>
 
   </body>
   <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
-  <script src="/js/scripts.js"></script>
+    <script src="/js/scripts.js"></script>
 
 </html>
